@@ -1,6 +1,2 @@
-# Sofis.Web
-<<<<<<< Updated upstream
-Um website da empresa Ágape LTDA. 
-=======
-Um website da empresa Ágape LTDA.  
->>>>>>> Stashed changes
+# Ágape LTDA - Website Oficial
+Website institucional da Ágape LTDA, desenvolvido para apresentar a história da empresa, sua identidade e seus projetos.
