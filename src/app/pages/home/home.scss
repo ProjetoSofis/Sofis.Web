@@ -46,8 +46,7 @@ $shadow-color: rgba(0, 0, 0, 0.2);
 
 @media (max-width: $tablet-breakpoint) {
   .main-content {
-    height: auto;
-    padding: 60px 20px;
+    // padding: 60px 20px;
 
     .content-box {
       h1 {
@@ -63,7 +62,7 @@ $shadow-color: rgba(0, 0, 0, 0.2);
 
 @media (max-width: $mobile-breakpoint) {
   .main-content {
-    padding: 40px 10px;
+    // padding: 40px 10px;
     
     .content-box {
       h1 {
