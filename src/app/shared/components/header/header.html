@@ -1,0 +1,33 @@
+<header class="homepage-header">
+  <div class="header-nav-container" [class.open]="menuOpen">
+    <nav class="header-nav left-nav" role="navigation">
+      <a href="#">Origem</a>
+      <a href="#">Equipe</a>
+      <a href="#">Projetos</a>
+    </nav>
+
+    <a class="header-center" href="">
+      <img src="images/agape-logo-extended.png" alt="Logo Ágape" class="header-logo">
+    </a>
+
+    <nav class="header-nav right-nav" role="navigation">
+      <a href="#">Contato</a>
+      <a href="#" class="participate-button">Participe!</a>
+    </nav>
+
+    <nav class="navaddtion"  role="navigation">
+      <a href="#">Contato</a>
+      <a href="#">Origem</a>
+      <a href="#">Equipe</a>
+      <a href="#">Projetos</a>
+      <a href="#">Participe!</a>
+    </nav>
+  </div>
+  
+  <button class="menu-toggle"
+          (click)="toggleMenu()"
+          aria-label="Abrir/Fechar Menu"
+          [attr.aria-expanded]="menuOpen">
+    <mat-icon>{{ menuOpen ? 'close' : 'menu' }}</mat-icon>
+  </button>
+</header>

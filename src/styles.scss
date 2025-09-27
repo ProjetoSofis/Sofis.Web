@@ -1,0 +1,56 @@
+$font-path: '../public/fonts';
+$orange-gradient: linear-gradient(270deg, #D98C4A, #FFA85C, #e2a364, #D98C4A);
+
+@mixin gradient-animation($name, $duration) {
+  animation: $name $duration ease infinite;
+  background-size: 1000% 1000%;
+}
+
+body {
+  background: $orange-gradient;
+  @include gradient-animation(gradienteLaranja, 20s);
+}
+
+@keyframes gradienteLaranja {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url("#{$font-path}/Nunito.ttf");
+  font-weight: 200 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url("#{$font-path}/NunitoItalic.ttf");
+  font-weight: 200 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Baloo;
+  src: url("#{$font-path}/Baloo2.ttf");
+  font-weight: 200 800;
+  font-style: normal;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
