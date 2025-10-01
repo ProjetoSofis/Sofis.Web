@@ -29,7 +29,7 @@ jobs:
         run: npm ci
 
       - name: Run Linting
-        run: npm run lint
+        run: npm run lint --if-present
         # Adicione '--if-present' se o comando 'lint' não estiver sempre no package.json
         # run: npm run lint --if-present
 
