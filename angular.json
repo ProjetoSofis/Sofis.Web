@@ -75,8 +75,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": ["node_modules/zone.js/fesm2015/zone.js",
-      "node_modules/zone.js/fesm2015/zone-testing.js"],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
