@@ -1,0 +1,40 @@
+name: Angular CI/CD
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    # **Ajuste aqui:** Focando apenas na versão LTS mais recente
+    strategy:
+      matrix:
+        node-version: [20.x] # Use a versão LTS que você considera a principal
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Linting
+        run: npm run lint --if-present
+        # Adicione '--if-present' se o comando 'lint' não estiver sempre no package.json
+        # run: npm run lint --if-present
+
+      - name: Run Tests
+        run: npm test -- --no-watch --browsers=ChromeHeadless
+
+      - name: Build Angular App
+        run: npm run build

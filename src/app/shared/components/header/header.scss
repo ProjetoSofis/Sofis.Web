@@ -1,0 +1,149 @@
+$desktop-breakpoint: 1200px;
+$tablet-breakpoint: 768px;
+$nunito-font: 'Nunito', sans-serif;
+$white-agape: #f2ede4;
+$padding-desktop: 10px 40px;
+$padding-mobile: 10px 15px;
+
+.homepage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $padding-mobile;
+}
+
+.header-logo {
+  height: 35px;
+}
+
+a {
+  font-family: $nunito-font;
+  font-weight: 800;
+  text-decoration: none;
+  color: $white-agape;
+  margin: 0 5px;
+}
+
+.menu-toggle {
+  display: block;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  mat-icon {
+    color: $white-agape;
+    font-size: 25px;
+    height: 25px;
+    width: 25px;
+  }
+}
+
+.header-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  .header-nav {
+    display: none;
+  }
+
+  .navaddtion {
+    align-content: center;
+    a {
+      padding: 10px;
+      color: $white-agape;
+      text-align: center;
+      font-size: 18px;
+    }
+  }
+
+  nav {
+    box-sizing: border-box;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    flex-direction: column;
+    z-index: 1000;
+
+    max-height: 0;
+    opacity: 0;
+    overflow-y: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &.open nav {
+    max-height: 3em;
+    opacity: 1;
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: $tablet-breakpoint) {
+  .homepage-header {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .participate-button {
+    color: $white-agape;
+    border: 1px solid $white-agape;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+
+  .header-nav-container nav:not(:last-child) {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    background: transparent;
+    width: auto;
+    max-height: none;
+    opacity: 1;
+    transition: none;
+  }
+
+  .header-center {
+    margin: 0 20px;
+  }
+
+  .header-logo {
+    height: 45px;
+  }
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .homepage-header {
+    padding: $padding-desktop;
+  }
+
+  .left-nav {
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid $white-agape;
+  }
+
+  .right-nav a:first-child {
+    font-family: $nunito-font;
+    font-weight: 800;
+    color: $white-agape;
+    border-radius: 10px;
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
