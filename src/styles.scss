@@ -1,6 +1,12 @@
 $font-path: '../public/fonts';
 $orange-gradient: linear-gradient(270deg, #D98C4A, #FFA85C, #e2a364, #D98C4A);
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 @mixin gradient-animation($name, $duration) {
   animation: $name $duration ease infinite;
   background-size: 1000% 1000%;

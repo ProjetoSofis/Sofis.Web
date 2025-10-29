@@ -1,33 +1,33 @@
-<header class="homepage-header">
-  <div class="header-nav-container" [class.open]="menuOpen">
-    <nav class="header-nav left-nav" role="navigation">
-      <a href="#">Origem</a>
-      <a href="#">Equipe</a>
-      <a href="#">Projetos</a>
-    </nav>
-
-    <a class="header-center" href="">
-      <img src="images/agape-logo-extended.png" alt="Logo Ágape" class="header-logo">
+<div class="header-hover-zone"></div>
+<header id="mainHeader">
+  <header class="homepage-header" [class.scrolled]="isScrolled" [class.menu-open]="menuOpen">
+    <a class="logo">
+      <img
+        [src]="isScrolled ? 'images/agape-logo-icon.png' : 'images/agape-logo-extended.png'"
+        alt="Logo"
+      />
     </a>
 
-    <nav class="header-nav right-nav" role="navigation">
-      <a href="#">Contato</a>
-      <a href="#" class="participate-button">Participe!</a>
+    <!-- Navegação Desktop -->
+    <nav class="main-nav desktop-only">
+      <a href="#origem">Origem</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#projetos">Projetos</a>
     </nav>
 
-    <nav class="navaddtion"  role="navigation">
-      <a href="#">Contato</a>
-      <a href="#">Origem</a>
-      <a href="#">Equipe</a>
-      <a href="#">Projetos</a>
-      <a href="#">Participe!</a>
+    <!-- Botão Mobile -->
+    <button class="hamburger mobile-only" (click)="toggleMenu()" aria-label="Abrir/Fechar Menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <!-- Navegação Mobile -->
+    <nav class="mobile-nav" [class.open]="menuOpen">
+      <button class="hamburger mobile-only" (click)="closeMenu()" aria-label="Abrir/Fechar Menu">
+        <mat-icon>close</mat-icon>
+      </button>
+      <a class="lnkmobile" [class.open]="menuOpen" href="#origem" (click)="closeMenu()">Origem</a>
+      <a class="lnkmobile" [class.open]="menuOpen" href="#equipe" (click)="closeMenu()">Equipe</a>
+      <a class="lnkmobile" [class.open]="menuOpen" href="#projetos" (click)="closeMenu()">Projetos</a>
     </nav>
-  </div>
-  
-  <button class="menu-toggle"
-          (click)="toggleMenu()"
-          aria-label="Abrir/Fechar Menu"
-          [attr.aria-expanded]="menuOpen">
-    <mat-icon>{{ menuOpen ? 'close' : 'menu' }}</mat-icon>
-  </button>
+  </header>
 </header>

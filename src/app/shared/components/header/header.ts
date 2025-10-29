@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
@@ -10,16 +10,39 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class Header {
   menuOpen = false;
+  isScrolled = false;
 
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+  private lastScroll = 0;
+  
+toggleMenu() {
+  const mobiles = document.getElementsByClassName('lnkmobile') as HTMLCollectionOf<HTMLElement>;
+  this.menuOpen = !this.menuOpen;
+  document.body.style.overflow = this.menuOpen ? 'hidden' : '';
+  for (let mobile of mobiles) {
+    mobile.style.display = this.menuOpen ? 'flex' : 'none';
   }
+}
 
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: Event) {
-    const target = event.target as HTMLElement;
-    if (!target.closest('.homepage-header')) {
-      this.menuOpen = false;
-    }
+closeMenu() {
+  const mobiles = document.getElementsByClassName('lnkmobile') as HTMLCollectionOf<HTMLElement>;
+  this.menuOpen = false;
+  document.body.style.overflow = '';
+
+  for (let mobile of mobiles) {
+    mobile.style.display = 'none';
+  }
+}
+
+
+  @HostListener('window:scroll')
+  onScroll() {
+    const current = window.scrollY;
+
+    this.isScrolled = current > 40;
+
+    const goingDownFast = current > this.lastScroll + 12;
+    const goingUpFast = current < this.lastScroll - 12;
+
+    this.lastScroll = current;
   }
 }

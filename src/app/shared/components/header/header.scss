@@ -1,149 +1,92 @@
-$desktop-breakpoint: 1200px;
-$tablet-breakpoint: 768px;
 $nunito-font: 'Nunito', sans-serif;
 $white-agape: #f2ede4;
-$padding-desktop: 10px 40px;
-$padding-mobile: 10px 15px;
+$black-agape: #1E1B18;
+$accent: #D98C4A;
 
 .homepage-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: $padding-mobile;
+  justify-content: space-between;
+  padding: 12px 18px;
+  z-index: 999;
+  transition: transform 0.25s ease, background-color 0.3s ease;
+  background: transparent;
+
+  &.scrolled {
+    backdrop-filter: blur(6px);
+  }
+
+  &.menu-open {
+    transform: none !important;      // remove animação que cria stacking context
+    backdrop-filter: none !important; // remove o blur que causa "duplicação"
+    background: rgba($accent, 0.98); // header vira plano sólido enquanto menu aberto
+    z-index: 0 !important;           // não compete visualmente com o menu
+  }
 }
 
-.header-logo {
-  height: 35px;
+.logo img {
+  height: 38px;
+  transition: height 0.25s ease;
 }
 
-a {
+.homepage-header.scrolled .logo img {
+  height: 30px;
+}
+
+.main-nav a,
+.mobile-nav a {
   font-family: $nunito-font;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: none;
   color: $white-agape;
-  margin: 0 5px;
+  margin: 0 10px;
 }
 
-.menu-toggle {
-  display: block;
-  background: transparent;
-  border: none;
-  cursor: pointer;
+.desktop-only { display: none; }
+.mobile-only { display: block; }
 
-  mat-icon {
-    color: $white-agape;
-    font-size: 25px;
-    height: 25px;
-    width: 25px;
-  }
-}
-
-.header-nav-container {
+/* MOBILE NAV */
+.mobile-nav {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: rgba($accent, 0.98);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 100%;
+  gap: 25px;
 
-  .header-nav {
-    display: none;
-  }
+  transform: translateY(-100%);
+  transition: transform 0.4s ease;
 
-  .navaddtion {
-    align-content: center;
-    a {
-      padding: 10px;
-      color: $white-agape;
-      text-align: center;
-      font-size: 18px;
-    }
-  }
 
-  nav {
-    box-sizing: border-box;
-    position: fixed;
-    top: 65px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #333;
-    flex-direction: column;
+  &.open {
+    transform: translateY(0);
     z-index: 1000;
-
-    max-height: 0;
-    opacity: 0;
-    overflow-y: hidden;
-    transition: all 0.3s ease-in-out;
+    .lnkmobile.open { display: flex; }
   }
-
-  &.open nav {
-    max-height: 3em;
-    opacity: 1;
-    overflow-x: auto;
-  }
+  a { font-size: 22px; &.lnkmobile { display: none; } }
+  
 }
 
-@media (min-width: $tablet-breakpoint) {
-  .homepage-header {
-    justify-content: space-between;
-    flex-wrap: nowrap;
-  }
 
-  .menu-toggle {
-    display: none;
-  }
-
-  .participate-button {
+.hamburger {
+  padding-bottom: 10px;
+  border: none;
+  background: none;
+  & mat-icon {
     color: $white-agape;
-    border: 1px solid $white-agape;
-    padding: 5px 10px;
-    border-radius: 10px;
-  }
-
-  .header-nav-container nav:not(:last-child) {
-    display: flex !important;
-    position: static;
-    flex-direction: row;
-    background: transparent;
-    width: auto;
-    max-height: none;
-    opacity: 1;
-    transition: none;
-  }
-
-  .header-center {
-    margin: 0 20px;
-  }
-
-  .header-logo {
-    height: 45px;
+    font-size: 30px;
   }
 }
 
-@media (min-width: $desktop-breakpoint) {
-  .homepage-header {
-    padding: $padding-desktop;
-  }
-
-  .left-nav {
-    background-color: transparent;
-    padding: 5px;
-    border-radius: 10px;
-    border: 2px solid $white-agape;
-  }
-
-  .right-nav a:first-child {
-    font-family: $nunito-font;
-    font-weight: 800;
-    color: $white-agape;
-    border-radius: 10px;
-    background-color: transparent;
-    border: none;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-  }
+/* Tablet e Desktop */
+@media (min-width: 1024px) {
+  .desktop-only { display: flex; }
+  .mobile-only, .mobile-nav { display: none; }
 }
+
