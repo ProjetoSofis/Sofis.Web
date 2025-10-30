@@ -1,77 +1,241 @@
+$baloo-font: 'Baloo', sans-serif;
+$nunito-font: 'Nunito', sans-serif;
 $desktop-breakpoint: 1200px;
 $tablet-breakpoint: 768px;
 $mobile-breakpoint: 576px;
-$baloo-font: 'Baloo', sans-serif;
+$container-width: 1400px;
+$header-height: 66px;
 $white-agape: #f2ede4;
-$shadow-color: rgba(0, 0, 0, 0.2);
+$black-agape: #1e1b18;
 
 .main-content {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+section {
+  display: block;
   align-items: center;
-  height: calc(100vh - 120px);
   text-align: center;
-  color: $white-agape;
+  padding: 6rem 0; 
 
-  .content-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  h1, h2 {
+    font-family: 'Baloo', sans-serif;
+    color: $white-agape;
+    margin: 0;
+    line-height: 1.1;
+  }
 
-    h1 {
-      font-family: $baloo-font;
-      font-size: 4em;
-      font-weight: 1000;
-      color: $white-agape;
-      text-shadow: 2px 2px 4px $shadow-color;
-      line-height: 1;
-      margin: 10px;
+  .card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+  }
+
+  .card {
+    z-index: 1;
+    width: 100%;
+    height: 400px;
+    margin: 1rem auto;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+
+  .card-inner {
+    position: relative;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    .logoproject{
+      position: absolute;
+      top: 2%;
+      right: 5%;
+      width: 15%;
+      height: auto;
+      filter: saturate(0%);
+      transition: filter 0.5s ease-in-out;
     }
+    .logoproject:hover {
+      filter: saturate(100%);
+    }
+  }
 
-    .cta-btn {
-      font-family: $baloo-font;
-      font-size: 1.2em;
-      font-weight: 800;
-      padding: 2px 25px;
-      border: 2px solid $white-agape;
-      border-radius: 10px;
-      background-color: transparent;
+  .card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+  }
+
+  .sub {
+    font-family: $nunito-font;
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    opacity: 0.65;
+    max-width: 700px;
+    margin: 1rem auto 0 auto;
+    line-height: 1.6;
+  }
+
+  .card-front {
+    border: 1px solid $white-agape;
+
+    p {
+      font-family: 'Nunito', sans-serif;
+      position: absolute;
+      line-height: 1;
+      text-align: left;
       color: $white-agape;
-      cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      font-weight: bolder;
+      margin: 0 !important;
+      bottom: 2%;
+      left: 5%;
+      font-size: 3vh;
+      text-shadow: 2px 2px 8px $black-agape;
+
+      span {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+.card-back {
+  font-family: 'Baloo', sans-serif;
+  font-weight: bolder;
+  font-size: 2.5em;
+  background: $white-agape;
+  color: $black-agape;
+  transform: rotateY(180deg);
+  align-content: end;
+
+  p {
+    position: absolute;
+    margin: 0 !important;
+    bottom: 2%;
+    left: 5%;
+    line-height: 1;
+    text-align: left;
+  }
+}
+
+  small {
+    font-family: $nunito-font;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 0.5rem;
+    text-align: start;
+  }
+
+  &.hero {
+    font-size: 3vh;
+    min-height: calc(100vh - $header-height);
+    padding-top: calc($header-height + 2rem);
+    display: flex;
+    justify-content: center;
+  }
+  
+  a {
+    color: $white-agape;
+  }
+
+  .cta-btn {
+    margin: 10px;
+    font-family: $nunito-font;
+    font-size: 1em;
+    font-weight: 800;
+    padding: 2px 25px;
+    border: 2px solid $white-agape;
+    border-radius: 10px;
+    background-color: transparent;
+    color: $white-agape;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+
+    a {
       text-decoration: none;
     }
   }
-}
 
-@media (max-width: $tablet-breakpoint) {
-  .main-content {
-    // padding: 60px 20px;
 
-    .content-box {
-      h1 {
-        font-size: 3em;
-      }
+  .container {
+    width: 100%;
+    max-width: $container-width;
+    margin: 0 auto;
+    padding: 0 1.25rem; // ~20px
 
-      .cta-btn {
-        font-size: 1em;
-      }
+    span {
+      color: $white-agape;
+      font-family: 'Nunito', sans-serif;
+      display: block;
+      font-weight: bolder;
+      font-size: 1.2em;
     }
   }
 }
 
-@media (max-width: $mobile-breakpoint) {
-  .main-content {
-    // padding: 40px 10px;
-    
-    .content-box {
-      h1 {
-        font-size: 2em;
-      }
+.hero { 
+  min-height: calc(100vh - $header-height);
+}
 
-      .cta-btn {
-        font-size: 0.9em;
-      }
+.powered,
+.problem,
+.for-whom,
+.solution,
+.features,
+.benefits,
+.team {
+  min-height: auto;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+/* Mobile/Tablet: ocupar 100% da tela */
+@media (max-width: $tablet-breakpoint) {
+  section {
+    padding: 3rem 1rem;
+    text-align: left;
+
+    h1 {
+      font-size: 1.9rem;
     }
+  }
+
+  .hero {
+    margin-bottom: 1em;
+    text-align: center;
+  }
+}
+
+/* Desktop: blocos centralizados */
+@media (min-width: $desktop-breakpoint) {
+  .container {
+    max-width: $container-width;
+  }
+
+  .wrapcards {
+    display: grid;
+    justify-content: center;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));  
+  }
+
+  .card-inner {
+    width: auto;
+    display: flex;
   }
 }
