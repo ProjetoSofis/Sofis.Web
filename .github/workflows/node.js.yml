@@ -1,29 +1,61 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+name: Angular CI/CD Build and Test
 
-name: Node.js CI
-
+# Define os eventos que disparam este workflow
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main # Roda ao fazer push no branch principal
+      - develop # Roda ao fazer push no branch de desenvolvimento
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - develop # Roda em todo Pull Request para garantir que o código está bom
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x, 22.x]
+  build-and-test:
+    name: Build, Test, and Lint
+    runs-on: ubuntu-latest # O tipo de máquina virtual que executará as etapas
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      # 1. Checkout do Código
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Configuração do Ambiente Node.js
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a versão do Node compatível com seu Angular
+
+      # 3. Cache de dependências (Opcional, mas altamente recomendado para acelerar)
+      - name: Cache Node Modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # 4. Instalação de Dependências
+      - name: Install Dependencies
+        run: npm ci # 'ci' é mais rápido e confiável em pipelines CI do que 'install'
+
+      # 5. Lint (Verificação de Estilo e Padrões)
+      - name: Run Lint
+        run: npm run lint # Certifique-se de ter um script "lint" no seu package.json
+
+      # 6. Testes Unitários
+      # ATENÇÃO: É crucial rodar testes Angular em modo Headless (sem interface gráfica).
+      - name: Run Unit Tests
+        run: npm run test:ci # Crie um script "test:ci" no seu package.json
+
+      # 7. Compilação (Build)
+      - name: Build Angular Application
+        run: npm run build -- --configuration=production # Compila para produção
+
+      # 8. Publicação do Artefato de Build (Para o deploy em outra etapa)
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-build
+          path: dist/seu-nome-do-projeto # Substitua pelo caminho da sua pasta de output (normalmente dist/nome-do-projeto)
